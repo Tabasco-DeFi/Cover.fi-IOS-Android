@@ -12,6 +12,8 @@ class BorrowPage extends StatefulWidget {
 class _BorrowPageState extends State<BorrowPage> {
   final stateController = Get.find<BorrowStateController>();
   final List<String> _currencies = ["USDC", "USDT", "DAI"];
+  final List<String> _tenors = ["1 Month", "3 Month", "6 Month"];
+  final List<String> _collateralCurrency = ["BTC", "ETH", "SOL", "BNB"];
 
   // @override
   // void dispose() {
@@ -23,42 +25,190 @@ class _BorrowPageState extends State<BorrowPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            const Text("Loan Currency"),
-            DropdownButton<String>(
-              onChanged: (String? value) {},
-              value: _currencies[0],
-              items: _currencies.map((String currency) {
-                return DropdownMenuItem<String>(
-                    value: currency, child: Text(currency));
-              }).toList(),
-            ),
-          ],
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Loan Currency"),
+              DropdownButton<String>(
+                onChanged: (String? value) {},
+                value: _currencies[0],
+                items: _currencies.map((String currency) {
+                  return DropdownMenuItem<String>(
+                      value: currency, child: Text(currency));
+                }).toList(),
+              ),
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            const Text("Target Loan Amount"),
-            // Flexible(
-            //   child: SizedBox(
-            //     width: MediaQuery.of(context).size.height * 0.15,
-            //     child: TextField(
-            //       obscureText: true,
-            //       decoration: const InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         labelText: "Loan Amount"
-            //       ),
-            //       controller: stateController.textEditingController.value,
-            //       onSubmitted: (String value){
-            //         print(value);
-            //       },
-            //     ),
-            //   ),
-            // )
-          ],
-        )
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Target Loan Amount"),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.15,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Loan Amount"
+                    ),
+                    controller: stateController.textEditingController.value,
+                    onSubmitted: (String value){},
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Tenor"),
+              DropdownButton<String>(
+                onChanged: (String? value) {},
+                value: _tenors[0],
+                items: _tenors.map((String currency) {
+                  return DropdownMenuItem<String>(
+                      value: currency, child: Text(currency));
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Collateral Currency"),
+              DropdownButton<String>(
+                focusColor: Colors.purple[300],
+                onChanged: (String? value) {},
+                value: _collateralCurrency[0],
+                items: _collateralCurrency.map((String currency) {
+                  return DropdownMenuItem<String>(
+                      value: currency,
+                      child: Text(currency)
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Protection Layer"),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.15,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Lower Bound"
+                    ),
+                    controller: stateController.textEditingController.value,
+                    onSubmitted: (String value){},
+                  ),
+                ),
+              ),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.15,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Upper Bound"
+                    ),
+                    controller: stateController.textEditingController.value,
+                    onSubmitted: (String value){},
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Loan Rate"),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.15,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Loan Amount"
+                    ),
+                    controller: stateController.textEditingController.value,
+                    onSubmitted: (String value){},
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Repayment Amount"),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.15,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Loan Amount"
+                    ),
+                    controller: stateController.textEditingController.value,
+                    onSubmitted: (String value){},
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text("Collateral Amount"),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.15,
+                  child: TextField(
+                    // obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Loan Amount"
+                    ),
+                    controller: stateController.textEditingController.value,
+                    onSubmitted: (String value){},
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+
       ],
     );
   }
