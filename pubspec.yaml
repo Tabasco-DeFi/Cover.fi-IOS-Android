@@ -67,8 +67,15 @@ flutter:
      - assets/images/metamask_64.png
      - assets/images/coinbase_32.png
      - assets/images/coinbase_64.png
+     - assets/images/dai.png
+     - assets/images/usdt.png
+     - assets/images/usdc.png
+     - assets/images/usdc96.png
+     - assets/images/usdc128.png
      - assets/images/wallet.png
-
+     - assets/gif/usd-coin.gif
+     - assets/gif/usdt-coin.gif
+     - assets/gif/dai-coin.gif
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
