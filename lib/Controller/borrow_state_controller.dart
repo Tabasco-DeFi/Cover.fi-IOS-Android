@@ -18,4 +18,8 @@ class BorrowStateController extends GetxController{
 
   // BorrowPage - Form - State
   Rx<TextEditingController> textEditingController = TextEditingController().obs;
+
+  updateLoanCurrency(String stableCoin){
+    loanCurrency.value = stableCoin;
+  }
 }
