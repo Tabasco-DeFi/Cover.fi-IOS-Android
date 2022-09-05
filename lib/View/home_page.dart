@@ -42,23 +42,6 @@ class _HomePageState extends State<HomePage> {
                     MetaMaskWidget()
                   ],
                 )
-                // Scaffold(
-                //   backgroundColor: Colors.transparent,
-                //   appBar: AppBar(
-                //     backgroundColor: Colors.transparent,
-                //     elevation: 0.0,
-                //   ),
-                //   body: IndexedStack(
-                //     index: controller.tabIndex.value,
-                //     children: <Widget>[
-                //       // Widgets
-                //       MainPage(),
-                //       LendPage(),
-                //       BorrowPage(),
-                //       MetaMaskWidget()
-                //     ],
-                //   ),
-                // )
             ]
           ),
         ),
