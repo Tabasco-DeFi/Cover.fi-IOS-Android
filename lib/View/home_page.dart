@@ -27,24 +27,38 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardStateController>(builder: (controller) {
       return Scaffold(
-        body: SafeArea(
-          top: true,
-          bottom: true,
-          child: Stack(
-              children: <Widget>[
-                IndexedStack(
-                  index: controller.tabIndex.value,
-                  children: <Widget>[
-                    // Widgets
-                    MainPage(),
-                    LendPage(),
-                    BorrowPage(),
-                    MetaMaskWidget()
-                  ],
-                )
+        body: Stack(
+            children: <Widget>[
+              IndexedStack(
+                index: controller.tabIndex.value,
+                children: <Widget>[
+                  // Widgets
+                  MainPage(),
+                  LendPage(),
+                  BorrowPage(),
+                  MetaMaskWidget()
+                ],
+              )
             ]
-          ),
         ),
+        // body: SafeArea(
+        //   top: true,
+        //   bottom: true,
+        //   child: Stack(
+        //       children: <Widget>[
+        //         IndexedStack(
+        //           index: controller.tabIndex.value,
+        //           children: <Widget>[
+        //             // Widgets
+        //             MainPage(),
+        //             LendPage(),
+        //             BorrowPage(),
+        //             MetaMaskWidget()
+        //           ],
+        //         )
+        //     ]
+        //   ),
+        // ),
         bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Colors.purple[300],
             type: BottomNavigationBarType.fixed,
