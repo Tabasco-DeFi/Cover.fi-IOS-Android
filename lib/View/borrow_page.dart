@@ -46,15 +46,11 @@ class BorrowPage extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.all(10.0),
           padding: const EdgeInsets.all(20.0),
-          // color: stableCoin == "USDT" ?
-          //   Colors.green[300] :
-          //   stableCoin == "USDC" ?
-          //     Colors.blue[400] :
-          //     Colors.orange[300],
           child: GestureDetector(
             onTap: (){
               borrowStateController.isFillingBorrowForm();
               borrowStateController.updateLoanCurrency(stableCoin);
+              borrowStateController.updateCompletedStep(0); // Selected Stablecoin
               Get.to(BorrowSummaryPage());
             },
             child: SizedBox(
