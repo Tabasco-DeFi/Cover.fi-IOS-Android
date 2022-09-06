@@ -16,10 +16,17 @@ class BorrowStateController extends GetxController{
   RxInt repaymentAmount = 0.obs;
   RxInt collateralAmount = 0.obs;
 
+  // Borrowing status
+  RxBool isFillingBorrowForm = false.obs;
+
   // BorrowPage - Form - State
   Rx<TextEditingController> textEditingController = TextEditingController().obs;
 
   updateLoanCurrency(String stableCoin){
     loanCurrency.value = stableCoin;
+  }
+
+  updateIsFillingBorrowForm(){
+    isFillingBorrowForm.value = !isFillingBorrowForm.value;
   }
 }
