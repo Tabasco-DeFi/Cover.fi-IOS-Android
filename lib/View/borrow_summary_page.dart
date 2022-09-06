@@ -13,16 +13,88 @@ class BorrowSummaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(35),
+        child: AppBar(
+          title: const Text("Borrow Summary"),
+        ),
+      ),
       body: SafeArea(
         top: true,
         bottom: true,
         child: Center(
-            child: Text("${borrowStateController.loanCurrency.value} Borrow Summary Page")
+            child: Obx(() => buildStepper())
         ),
       ),
     );
   }
 
-  // Stepper getStepper(){}
+  Stepper buildStepper(){
+    return Stepper(
+      currentStep: borrowStateController.step.value,
+      onStepTapped: (index){
+        borrowStateController.updateStep(index);
+      },
+      onStepCancel: (){
+        if(borrowStateController.step.value != 0){
+          borrowStateController.step.value--;
+        }
+      },
+      onStepContinue: (){
+        if(borrowStateController.step.value != 9){
+          borrowStateController.step.value++;
+        }
+      },
+      controlsBuilder: _createEventControlBuilder,
+      steps: stepCreator(),
+
+    );
+  }
+  Widget _createEventControlBuilder(
+      BuildContext context,
+      ControlsDetails details
+      )
+  {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: details.onStepContinue,
+            child: const Text('Next'),
+          ),
+          ElevatedButton(
+            onPressed: details.onStepCancel,
+            child: const Text('Back'),
+          ),
+        ]
+    );
+  }
+
+  List<Step> stepCreator(){
+    final steps = {
+      "Stablecoin Type" : borrowStateController.loanCurrency.value,
+       "Target Loan Amount" : borrowStateController.targetLoanAmount.value,
+       "Tenor" : borrowStateController.loanTenor.value,
+       "Collateral Type" : borrowStateController.collateralType.value,
+       "Subscription Period" : borrowStateController.subscriptionPeriod.value,
+       "Lower Bound" : borrowStateController.lowerProtectionRange.value,
+       "Upper Bound" : borrowStateController.upperProtectionRange.value,
+       "Loan Rate" : borrowStateController.loanRate.value,
+       "Repayment Amount" : borrowStateController.repaymentAmount.value,
+       "Collateral Amount" : borrowStateController.collateralAmount.value
+    };
+    List<Step> result = <Step>[];
+    for(var i=0; i<steps.length; i++){
+      result.add(
+          Step(
+              // isActive: borrowStateController.step.value >= i,
+              isActive: borrowStateController.isCompleted[i],
+              title: Text(steps.keys.toList()[i]),
+              content: Text("${steps.values.toList()[i]}")
+          )
+      );
+    }
+    return result;
+  }
+
 }
