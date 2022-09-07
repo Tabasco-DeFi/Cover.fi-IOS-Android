@@ -1,6 +1,10 @@
-import 'package:flutter/cupertino.dart';
+// Package
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+// Views
+import 'package:coverfi_flutter/View/borrow_input_page.dart';
+
+/// Borrow Page -> Borrow Summary Page -> Click each stage to get the input
 
 // Controller
 import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
@@ -14,7 +18,7 @@ class BorrowSummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(35),
+        preferredSize: const Size.fromHeight(45),
         child: AppBar(
           title: const Text("Borrow Summary"),
         ),
@@ -34,6 +38,7 @@ class BorrowSummaryPage extends StatelessWidget {
       currentStep: borrowStateController.step.value,
       onStepTapped: (index){
         borrowStateController.updateStep(index);
+        Get.to(BorrowInputPage());
       },
       onStepCancel: (){
         if(borrowStateController.step.value != 0){
@@ -50,22 +55,18 @@ class BorrowSummaryPage extends StatelessWidget {
 
     );
   }
-  Widget _createEventControlBuilder(
-      BuildContext context,
-      ControlsDetails details
-      )
-  {
+  Widget _createEventControlBuilder(BuildContext context, ControlsDetails details) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          ElevatedButton(
-            onPressed: details.onStepContinue,
-            child: const Text('Next'),
+          TextButton(
+              onPressed: (){},
+              child: const Text("Previous")
           ),
-          ElevatedButton(
-            onPressed: details.onStepCancel,
-            child: const Text('Back'),
-          ),
+          TextButton(
+              onPressed: (){},
+              child: const Text("Next")
+          )
         ]
     );
   }
@@ -89,12 +90,17 @@ class BorrowSummaryPage extends StatelessWidget {
           Step(
               // isActive: borrowStateController.step.value >= i,
               isActive: borrowStateController.isCompleted[i],
-              title: Text(steps.keys.toList()[i]),
-              content: Text("${steps.values.toList()[i]}")
+              title: Text(
+                  steps.keys.toList()[i],
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              content: Text(
+                  "${steps.values.toList()[i]}",
+                  style: const TextStyle(fontSize: 15),
+              )
           )
       );
     }
     return result;
   }
-
 }
