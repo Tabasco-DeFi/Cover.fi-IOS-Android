@@ -1,28 +1,32 @@
+import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+// Controllers
+import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
 
-class LendPage extends StatefulWidget {
-  const LendPage({Key? key}) : super(key: key);
-
+class BorrowInputComponent extends StatefulWidget {
+  const BorrowInputComponent({Key? key, required this.idx}) : super(key: key);
+  final int idx;
   @override
-  State<LendPage> createState() => _LendPageState();
+  State<BorrowInputComponent> createState() => _BorrowInputComponentState();
 }
 
-class _LendPageState extends State<LendPage> {
-  final _textController = TextEditingController();
-  String userInput = "";
+class _BorrowInputComponentState extends State<BorrowInputComponent> {
+  final BorrowStateController borrowStateController = Get.find<BorrowStateController>();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          getQuestionComponent(context),
-          getTextFieldComponent(context),
-          getSubmitButtonComponent(context),
+          /// Switch on the selected input form
+          getQuestionComponent(),
+          getTextFieldComponent(),
+          // getSubmitButtonComponent(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.2,
             width: MediaQuery.of(context).size.width,
@@ -32,54 +36,56 @@ class _LendPageState extends State<LendPage> {
     );
   }
 
-  Flexible getQuestionComponent(BuildContext context){
-    return Flexible(
+  Obx getQuestionComponent(){
+    return Obx(() => Flexible(
         flex: 5,
         fit: FlexFit.tight,
         child: Center(
             child: Text(
-                userInput,
-                style: TextStyle(fontSize: 35)
+                borrowStateController.userInput[widget.idx] ?? "",
+                style: const TextStyle(fontSize: 35)
             )
         )
-    );
+    ));
   }
 
-  Flexible getTextFieldComponent(BuildContext context){
-    return Flexible(
+  Obx getTextFieldComponent(){
+    return Obx(() => Flexible(
       flex: 3,
       child: TextField(
-        controller: _textController,
+        controller: borrowStateController.userTextController[widget.idx]?.value,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           hintText: "Amount of USDT to Borrow",
           suffixIcon: IconButton(
             onPressed: (){
-              _textController.clear();
+              borrowStateController.userTextController[widget.idx]?.value.clear();
             },
             icon: const Icon(Icons.clear),
           ),
         ),
       ),
+    )
     );
   }
 
-  Flexible getSubmitButtonComponent(BuildContext context) {
-    return Flexible(
+  Obx getSubmitButtonComponent() {
+    return Obx(() => Flexible(
       flex: 1,
       child: SizedBox(
         child: CupertinoButton(
           padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25, right: 25),
           onPressed: (){
-            setState(() {
-              userInput = _textController.text;
-              _textController.clear();
-            });
+            borrowStateController.updateUserInput(
+                widget.idx,
+                borrowStateController.userTextController[widget.idx]?.value.text ?? ""
+            );
+            borrowStateController.userTextController[widget.idx]?.value.clear();
           },
           color: Colors.purple[300],
           child: const Text("Submit"),
         ),
       ),
-    );
+    ));
   }
 }
