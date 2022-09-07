@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class BorrowStateController extends GetxController{
-  // BorrowSummaryPage - State
+  /// BorrowSummaryPage - State
+
+  // Current Step
   RxInt step = 0.obs;
+  // List to check if the selected step is completed
   List<bool> isCompleted = List<bool>.filled(10, false, growable: false);
 
   updateStep(int _step) {
@@ -13,7 +16,13 @@ class BorrowStateController extends GetxController{
     isCompleted[index] = true;
   }
 
+  // Borrow Input Page
+  RxMap<int, String> userInput = <int, String>{}.obs;
+  RxMap<int, Rx<TextEditingController>> userTextController = <int, Rx<TextEditingController>>{}.obs;
 
+  updateUserInput(int index, String value){
+    userInput[index] = value;
+  }
 
   // BorrowPage - State
   RxString loanCurrency = "".obs;
