@@ -9,9 +9,9 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(35),
+        preferredSize: const Size.fromHeight(45),
         child: AppBar(
-          title: Text("Home"),
+          title: const Text("Home"),
         ),
       ),
       body: Padding(

@@ -9,9 +9,9 @@ class MetaMaskWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(35),
+        preferredSize: const Size.fromHeight(45),
         child: AppBar(
-          title: Text("Wallet"),
+          title: const Text("Wallet"),
         ),
       ),
       body: SafeArea(
