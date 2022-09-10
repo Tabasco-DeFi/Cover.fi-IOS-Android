@@ -1,4 +1,5 @@
 /// Packages
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,43 +23,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final dashboardController = Get.find<DashboardStateController>();
+  final List<Widget> _pageList = <Widget>[
+    MainPage(),
+    LendPage(),
+    BorrowPage(),
+    MetaMaskWidget()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardStateController>(builder: (controller) {
       return Scaffold(
-        body: Stack(
-            children: <Widget>[
-              IndexedStack(
-                index: controller.tabIndex.value,
-                children: <Widget>[
-                  // Widgets
-                  MainPage(),
-                  LendPage(),
-                  BorrowPage(),
-                  MetaMaskWidget()
-                ],
-              )
-            ]
+        body: PageTransitionSwitcher(
+          transitionBuilder: (
+              Widget child,
+              Animation<double> primaryAnimation,
+              Animation<double> secondaryAnimation
+              ){
+            return FadeThroughTransition(
+                animation: primaryAnimation,
+                secondaryAnimation: secondaryAnimation,
+                child: child,
+            );
+          },
+          child: _pageList[controller.tabIndex.value] /// !Entry point
         ),
-        // body: SafeArea(
-        //   top: true,
-        //   bottom: true,
-        //   child: Stack(
-        //       children: <Widget>[
-        //         IndexedStack(
-        //           index: controller.tabIndex.value,
-        //           children: <Widget>[
-        //             // Widgets
-        //             MainPage(),
-        //             LendPage(),
-        //             BorrowPage(),
-        //             MetaMaskWidget()
-        //           ],
-        //         )
-        //     ]
-        //   ),
-        // ),
         bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Colors.purple[300],
             type: BottomNavigationBarType.fixed,
