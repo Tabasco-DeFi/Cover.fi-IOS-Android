@@ -1,7 +1,14 @@
+import 'package:coverfi_flutter/Model/mock_borrow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class BorrowStateController extends GetxController{
+  /// Mock Borrow Data
+  RxList<dynamic> mockBorrowData = <dynamic>[].obs;
+
+  updateMockData(dynamic data){
+    mockBorrowData = data;
+  }
   /// BorrowSummaryPage - State
 
   // Current Step
@@ -17,9 +24,15 @@ class BorrowStateController extends GetxController{
   }
 
   // Borrow Input Page
-  RxMap<int, String> userInput = <int, String>{}.obs;
-  RxMap<int, Rx<TextEditingController>> userTextController = <int, Rx<TextEditingController>>{}.obs;
+  Map<int, bool> inputIsInitialized = <int, bool>{}.obs;
+  Map<int, String> userInput = <int, String>{}.obs;
+  Map<int, TextEditingController> userTextController = <int, TextEditingController>{}.obs;
 
+  initializeUserInput(int idx) {
+    inputIsInitialized[idx] = true;
+    userInput[idx] = "";
+    userTextController[idx] = TextEditingController();
+  }
   updateUserInput(int index, String value){
     userInput[index] = value;
   }
