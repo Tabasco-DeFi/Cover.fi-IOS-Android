@@ -5,6 +5,7 @@ import 'package:coverfi_flutter/View/home_page.dart';
 import 'package:coverfi_flutter/View/metamask_page.dart';
 import 'package:coverfi_flutter/View/borrow_summary_page.dart';
 import 'package:coverfi_flutter/View/borrow_input_page.dart';
+import 'package:coverfi_flutter/View/new_borrow_stepper_page.dart';
 
 appRoutes() => [
       GetPage(
@@ -21,7 +22,7 @@ appRoutes() => [
       ),
       GetPage(
         name: "/borrowPage",
-        page: () => BorrowSummaryPage(),
+        page: () => BorrowStepsPage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500)
       ),
