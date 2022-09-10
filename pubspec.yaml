@@ -38,6 +38,9 @@ dependencies:
   permission_handler: ^10.0.0
   web3dart: ^2.4.1
   font_awesome_flutter: ^10.1.0
+  animations: ^2.0.4
+  google_fonts: ^3.0.1
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +79,17 @@ flutter:
      - assets/gif/usd-coin.gif
      - assets/gif/usdt-coin.gif
      - assets/gif/dai-coin.gif
+     - assets/icons/one.png
+     - assets/icons/two.png
+     - assets/icons/three.png
+     - assets/icons/four.png
+     - assets/icons/five.png
+     - assets/icons/six.png
+     - assets/icons/seven.png
+     - assets/icons/eight.png
+     - assets/icons/nine.png
+     - assets/json/mock_lend_data.json
+     - assets/json/mock_borrow_data.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
