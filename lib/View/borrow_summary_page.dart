@@ -38,7 +38,7 @@ class BorrowSummaryPage extends StatelessWidget {
       currentStep: borrowStateController.step.value,
       onStepTapped: (index){
         borrowStateController.updateStep(index);
-        Get.to(BorrowInputPage());
+        Get.to(()=>BorrowInputPage());
       },
       onStepCancel: (){
         if(borrowStateController.step.value != 0){
