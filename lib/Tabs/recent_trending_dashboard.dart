@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RecentTrendingDashboard extends StatelessWidget {
-  const RecentTrendingDashboard({Key? key}) : super(key: key);
+class RecentTrendDashboard extends StatelessWidget {
+  const RecentTrendDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
