@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 // Controller
 import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
+import 'package:coverfi_flutter/View/new_borrow_stepper_page.dart';
 
 // Views
 import 'package:coverfi_flutter/View/borrow_summary_page.dart';
@@ -51,7 +52,7 @@ class BorrowPage extends StatelessWidget {
               borrowStateController.isFillingBorrowForm();
               borrowStateController.updateLoanCurrency(stableCoin);
               borrowStateController.updateCompletedStep(0); // Selected Stablecoin
-              Get.to(BorrowSummaryPage());
+              Get.to(BorrowStepsPage());
             },
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
