@@ -1,6 +1,7 @@
 // Package
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Controller
 import 'package:coverfi_flutter/Controller/accessibility_state_controller.dart';
@@ -24,10 +25,16 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        // primarySwatch: Colors.orange,
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(131, 74, 200, 1),
+            brightness: Brightness.light,
+        ),
+        textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme)
         // brightness: Brightness.dark,
-        brightness: Brightness.light,
-        primarySwatch: Colors.blue,
       ),
+      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       initialRoute: "/homePage",
       getPages: appRoutes(),
