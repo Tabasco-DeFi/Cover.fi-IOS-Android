@@ -16,21 +16,40 @@ class _BorrowInputComponentState extends State<BorrowInputComponent> {
   final BorrowStateController borrowStateController = Get.find<BorrowStateController>();
 
   @override
+  void initState() {
+    super.initState();
+    // Have if nullable value is null. use false as default value
+    if(borrowStateController.inputIsInitialized[widget.idx] ?? false){
+    } else {
+      borrowStateController.initializeUserInput(widget.idx);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        // crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           /// Switch on the selected input form
           getQuestionComponent(),
           getTextFieldComponent(),
-          // getSubmitButtonComponent(),
+          const SizedBox(height: 30),
+          getSubmitButtonComponent(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.2,
             width: MediaQuery.of(context).size.width,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              previousButton(),
+              nextButton()
+            ],
           )
+
         ],
       ),
     );
@@ -50,29 +69,37 @@ class _BorrowInputComponentState extends State<BorrowInputComponent> {
   }
 
   Obx getTextFieldComponent(){
-    return Obx(() => Flexible(
+    return Obx(()=> Flexible(
       flex: 3,
       child: TextField(
-        controller: borrowStateController.userTextController[widget.idx]?.value,
+        onSubmitted: (value){
+          borrowStateController.updateUserInput(
+              widget.idx,
+              borrowStateController.userTextController[widget.idx]?.value.text ?? ""
+          );
+          borrowStateController.userTextController[widget.idx]?.clear();
+        },
+        onChanged: (value){},
+        controller: borrowStateController.userTextController[widget.idx],
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           hintText: "Amount of USDT to Borrow",
           suffixIcon: IconButton(
             onPressed: (){
-              borrowStateController.userTextController[widget.idx]?.value.clear();
+              borrowStateController.userTextController[widget.idx]!.clear();
             },
             icon: const Icon(Icons.clear),
           ),
         ),
       ),
-    )
-    );
+    ));
   }
 
-  Obx getSubmitButtonComponent() {
-    return Obx(() => Flexible(
+  Flexible getSubmitButtonComponent() {
+    return Flexible(
       flex: 1,
       child: SizedBox(
+        // Submit Button
         child: CupertinoButton(
           padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25, right: 25),
           onPressed: (){
@@ -80,12 +107,26 @@ class _BorrowInputComponentState extends State<BorrowInputComponent> {
                 widget.idx,
                 borrowStateController.userTextController[widget.idx]?.value.text ?? ""
             );
-            borrowStateController.userTextController[widget.idx]?.value.clear();
+            borrowStateController.userTextController[widget.idx]?.clear();
           },
           color: Colors.purple[300],
           child: const Text("Submit"),
         ),
       ),
-    ));
+    );
+  }
+
+  IconButton previousButton(){
+    return IconButton(
+        onPressed: (){},
+        icon: const Icon(Icons.navigate_before)
+    );
+  }
+
+  IconButton nextButton(){
+    return IconButton(
+        onPressed: (){},
+        icon: const Icon(Icons.navigate_next)
+    );
   }
 }
