@@ -71,8 +71,12 @@ flutter:
      - assets/images/coinbase_32.png
      - assets/images/coinbase_64.png
      - assets/images/dai.png
+     - assets/images/dai48.png
      - assets/images/usdt.png
+     - assets/images/usdt32.png
+     - assets/images/usdt48.png
      - assets/images/usdc.png
+     - assets/images/usdc48.png
      - assets/images/usdc96.png
      - assets/images/usdc128.png
      - assets/images/wallet.png
