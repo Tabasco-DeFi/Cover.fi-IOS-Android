@@ -3,12 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class BorrowStateController extends GetxController{
-  /// Mock Borrow Data
-  RxList<dynamic> mockBorrowData = <dynamic>[].obs;
-
-  updateMockData(dynamic data){
-    mockBorrowData = data;
-  }
   /// BorrowSummaryPage - State
 
   // Current Step
