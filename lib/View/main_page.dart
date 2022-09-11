@@ -15,15 +15,23 @@ class MainPage extends StatelessWidget {
           preferredSize: const Size.fromHeight(45),
           child: AppBar(
             elevation: 0,
-            title: const Text("Home"),
+            title: const Text("Cover.Fi"),
             leading: IconButton(
               onPressed: (){},
               icon: const Icon(Icons.menu),
             ),
+            actions: <Widget>[
+              IconButton(
+                onPressed: (){},
+                icon: const Icon(Icons.card_giftcard_rounded),
+                tooltip: "Refer a friend",
+              )
+            ],
+
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
           child: Column(
             children: <Widget>[
               Row(
@@ -43,29 +51,32 @@ class MainPage extends StatelessWidget {
                           "Total Tokens Burned"
                         ];
                         final List<int> values = [10000, 20000, 30000, 40000];
-                        return Card(
-                            elevation: 10,
-                            child: SizedBox(
-                              width: 150,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Text(
-                                      summaries[index],
-                                      softWrap: true,
-                                      overflow: TextOverflow.fade,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Card(
+                              elevation: 10,
+                              child: SizedBox(
+                                width: 250,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text(
+                                        summaries[index],
+                                        softWrap: true,
+                                        overflow: TextOverflow.fade,
+                                        maxLines: 2,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                  Text("\$${values[index]}")
-                                ],
-                              ),
-                            ));
+                                    Text("\$${values[index]}")
+                                  ],
+                                ),
+                              )),
+                        );
                       },
                     ),
                   ))
