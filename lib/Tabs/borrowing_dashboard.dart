@@ -67,23 +67,15 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
       listItems.add(
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Container(
+            child: SizedBox(
                 height: 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: GestureDetector(
-                      onTap: (){},
-                      child: OpenContainer(
-                        transitionType: _containerTransitionType,
-                        transitionDuration: const Duration(milliseconds: 500),
-                        openBuilder: (context, _) => CardDetailsComponent(data: data[i]),
-                        closedBuilder: (context, VoidCallback openContainer) => getCardWidget(data[i]),
-                      ),
-                  )
-
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: OpenContainer(
+                  closedColor: Colors.transparent,
+                  transitionType: _containerTransitionType,
+                  transitionDuration: const Duration(milliseconds: 500),
+                  openBuilder: (context, _) => CardDetailsComponent(data: data[i]),
+                  closedBuilder: (context, VoidCallback openContainer) => getCardWidget(data[i]),
                 ),
             ),
           )
