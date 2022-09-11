@@ -25,10 +25,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // primarySwatch: Colors.orange,
+        scaffoldBackgroundColor: const Color.fromRGBO(
+            214, 214, 214, 0.3),
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(131, 74, 200, 1),
+            seedColor: Colors.white,
             brightness: Brightness.light,
         ),
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme)
