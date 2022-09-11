@@ -21,13 +21,13 @@ class BorrowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(45),
+        preferredSize: const Size.fromHeight(45),
         child: AppBar(
-          title: Text("Borrow"),
+          title: const Text("Borrow"),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -52,10 +52,10 @@ class BorrowPage extends StatelessWidget {
               borrowStateController.isFillingBorrowForm();
               borrowStateController.updateLoanCurrency(stableCoin);
               borrowStateController.updateCompletedStep(0); // Selected Stablecoin
-              Get.to(BorrowStepsPage());
+              Get.to(BorrowSummaryPage());
             },
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.25,
               child: Card(
                   elevation: 10,
                   child: Column(
