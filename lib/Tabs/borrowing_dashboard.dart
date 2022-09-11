@@ -1,9 +1,10 @@
+import 'package:coverfi_flutter/Components/card_details_component.dart';
 import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:animations/animations.dart';
 // Models
-import 'package:coverfi_flutter/Model/mock_borrow.dart';
 import 'package:flutter/services.dart';
 
 class BorrowingDashboard extends StatefulWidget {
@@ -14,6 +15,7 @@ class BorrowingDashboard extends StatefulWidget {
 
 class _BorrowingDashboardState extends State<BorrowingDashboard> {
   final BorrowStateController stateController = Get.find<BorrowStateController>();
+  final ContainerTransitionType _containerTransitionType = ContainerTransitionType.fadeThrough;
   late Future<List<dynamic>> _borrowerData;
 
   Future<List<dynamic>> fetchData() async {
@@ -72,7 +74,15 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
                 ),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
-                  child: getCustomCard(data[i])
+                  child: GestureDetector(
+                      onTap: (){},
+                      child: OpenContainer(
+                        transitionType: _containerTransitionType,
+                        transitionDuration: const Duration(milliseconds: 500),
+                        openBuilder: (context, _) => CardDetailsComponent(data: data[i]),
+                        closedBuilder: (context, VoidCallback openContainer) => getCardWidget(data[i]),
+                      ),
+                  )
 
                 ),
             ),
@@ -82,7 +92,7 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
     return listItems;
   }
 
-  Card getCustomCard(dynamic data){
+  Card getCardWidget(dynamic data){
     return Card(
       elevation: 10,
       color: data["loanCurrency"] == "USDT" ?
@@ -97,7 +107,7 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("Borrow Amount", style: TextStyle(color: Colors.black)),
+                const Text("Borrow Amount", style: TextStyle(color: Colors.black)),
                 Image(
                   image: data["loanCurrency"] == "USDT" ?
                     const AssetImage("assets/images/usdt48.png"):
