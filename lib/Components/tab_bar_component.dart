@@ -17,24 +17,30 @@ class TabBarComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TabBar(
-          indicatorWeight: 2.0,
-          indicatorColor: Colors.black,
-          labelColor: Colors.deepPurple,
-          unselectedLabelColor: Colors.grey,
-          unselectedLabelStyle: GoogleFonts.lato(
-            fontSize: 14,
-            fontWeight: FontWeight.bold
-          ),
-          labelStyle: GoogleFonts.lato(
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: const Color.fromRGBO(255, 255, 255, 0.5)),
+          child: TabBar(
+            indicator: CircleTabIndicator(color: const Color.fromRGBO(0, 0, 0, 0.5), radius: 4),
+            indicatorWeight: 5.0,
+            indicatorColor: Colors.black,
+            labelColor: Colors.black,
+            unselectedLabelColor: Colors.grey,
+            unselectedLabelStyle: GoogleFonts.lato(
               fontSize: 14,
               fontWeight: FontWeight.bold
+            ),
+            labelStyle: GoogleFonts.lato(
+                fontSize: 14,
+                fontWeight: FontWeight.bold
+            ),
+            tabs: <Widget>[
+              Tab(child: Text(tabOptions[0][0])),
+              Tab(child: Text(tabOptions[1][0])),
+              Tab(child: Text(tabOptions[2][0])),
+            ],
           ),
-          tabs: <Widget>[
-            Tab(child: Text(tabOptions[0][0])),
-            Tab(child: Text(tabOptions[1][0])),
-            Tab(child: Text(tabOptions[2][0])),
-          ],
         ),
         Expanded(
             child: TabBarView(
@@ -47,5 +53,32 @@ class TabBarComponent extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+// TabIndicator -> Extends Decoration
+class CircleTabIndicator extends Decoration {
+  final BoxPainter _painter;
+  CircleTabIndicator({
+    required Color color,
+    required double radius
+  }): _painter = _CirclePainter(color, radius);
+
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) => _painter;
+}
+
+class _CirclePainter extends BoxPainter {
+  final Paint _paint;
+  final double radius;
+
+  _CirclePainter(Color color, this.radius): _paint = Paint()
+    ..color = color
+    ..isAntiAlias = true;
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration cfg){
+    final Offset circleOffset = offset + Offset(cfg.size!.width/2, cfg.size!.height - radius);
+    canvas.drawCircle(circleOffset, radius, _paint);
   }
 }
