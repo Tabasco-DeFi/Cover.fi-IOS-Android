@@ -1,23 +1,23 @@
 [
   {
     "currency" : "USDT",
-    "period": ["7 Days", "30 Days Days", "90 Days"],
+    "period": ["7 Days", "30 Days", "90 Days"],
     "apr": "13.84%",
-    "quota": 983224,
-    "maximum": 10000000
+    "quota": 903224,
+    "maximum": 1000000
   },
   {
     "currency" : "USDC",
-    "period": ["45 Days", "90 Days Days"],
+    "period": ["45 Days", "90 Days"],
     "apr": "10.27%",
-    "quota": 763214,
-    "maximum": 10000000
+    "quota": 363214,
+    "maximum": 1000000
   },
   {
     "currency" : "DAI",
-    "period": ["7 Days", "30 Days Days", "90 Days"],
+    "period": ["7 Days", "30 Days", "90 Days"],
     "apr": "13.84%",
-    "quota": 983224,
-    "maximum": 10000000
+    "quota": 836527,
+    "maximum": 1000000
   }
 ]
