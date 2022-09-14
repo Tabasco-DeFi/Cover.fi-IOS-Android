@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:coverfi_flutter/Tabs/recent_trending_dashboard.dart';
 import 'package:coverfi_flutter/Tabs/borrowing_dashboard.dart';
@@ -36,7 +35,7 @@ class TabBarComponent extends StatelessWidget {
                 fontWeight: FontWeight.bold
             ),
             tabs: <Widget>[
-              Tab(child: Text(tabOptions[0][0])),
+              // Tab(child: Text(tabOptions[0][0])),
               Tab(child: Text(tabOptions[1][0])),
               Tab(child: Text(tabOptions[2][0])),
             ],
@@ -45,7 +44,7 @@ class TabBarComponent extends StatelessWidget {
         Expanded(
             child: TabBarView(
               children: <Widget>[
-                tabOptions[0][1],
+                // tabOptions[0][1],
                 tabOptions[1][1],
                 tabOptions[2][1],
               ],
