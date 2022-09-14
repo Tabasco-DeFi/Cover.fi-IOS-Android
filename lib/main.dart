@@ -1,4 +1,6 @@
 // Package
+import 'package:coverfi_flutter/Controller/lend_state_controller.dart';
+import 'package:coverfi_flutter/utils/color_schemes.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:coverfi_flutter/Controller/accessibility_state_controller.dart';
 import 'package:coverfi_flutter/Controller/dashboard_state_controller.dart';
 import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
+import 'package:coverfi_flutter/Controller/lend_state_controller.dart';
 
 // Routes
 import 'main_routes.dart';
@@ -23,19 +26,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: "Cover Finance",
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromRGBO(
-            214, 214, 214, 0.3),
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.white,
-            brightness: Brightness.light,
-        ),
-        textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme)
-        // brightness: Brightness.dark,
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
       ),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme,
+          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme)
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: "/homePage",
       getPages: appRoutes(),
@@ -50,5 +51,6 @@ class InitialBindings implements Bindings {
     Get.put<AccessibilityStateController>(AccessibilityStateController());
     Get.put<DashboardStateController>(DashboardStateController());
     Get.put<BorrowStateController>(BorrowStateController());
+    Get.put<LendStateController>(LendStateController());
   }
 }
