@@ -2,22 +2,31 @@
   {
     "currency" : "USDT",
     "period": ["7 Days", "30 Days", "90 Days"],
+    "termStart": "15/08/2022",
     "apr": "13.84%",
+    "allocation": "54%",
     "quota": 903224,
-    "maximum": 1000000
+    "maximum": 1000000,
+    "reward": ["34.21 USDT","210.21 USDT","436.21 USDT"]
   },
   {
     "currency" : "USDC",
     "period": ["45 Days", "90 Days"],
+    "termStart": "15/08/2022",
     "apr": "10.27%",
+    "allocation": "46%",
     "quota": 363214,
-    "maximum": 1000000
+    "maximum": 1000000,
+    "reward": ["239.47 USDC","436.21 USDC"]
   },
   {
     "currency" : "DAI",
     "period": ["7 Days", "30 Days", "90 Days"],
+    "termStart": "15/08/2022",
     "apr": "13.84%",
+    "allocation": "64%",
     "quota": 836527,
-    "maximum": 1000000
+    "maximum": 1000000,
+    "reward": ["34.21 DAI","210.21 DAI","436.21 DAI"]
   }
 ]
