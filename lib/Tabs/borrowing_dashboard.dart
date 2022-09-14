@@ -1,4 +1,4 @@
-import 'package:coverfi_flutter/Components/card_details_component.dart';
+import 'package:coverfi_flutter/View/dashboard_borrow_details_component.dart';
 import 'package:coverfi_flutter/Controller/borrow_state_controller.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -54,7 +54,8 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
               child: Container(
                 margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    color: const Color.fromRGBO(255, 255, 255, 0.5),
+                    color: const Color.fromRGBO(
+                        255, 255, 255, 0.7803921568627451),
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   children: getListItems(snapshot.data),
