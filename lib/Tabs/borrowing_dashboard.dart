@@ -95,59 +95,67 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
     return listItems;
   }
 
-  Card getCardWidget(dynamic data) {
-    return Card(
-      elevation: 2,
-      color: data["loanCurrency"] == "USDT"
-          ? Colors.greenAccent[100]
-          : (data["loanCurrency"] == "USDC"
-              ? Colors.blueAccent[100]
-              : Colors.yellowAccent[100]),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                const Text("Borrow Amount",
-                    style: TextStyle(color: Colors.black)),
-                Image(
-                    image: data["loanCurrency"] == "USDT"
-                        ? const AssetImage("assets/images/usdt48.png")
-                        : data["loanCurrency"] == "USDC"
-                            ? const AssetImage("assets/images/usdc48.png")
-                            : const AssetImage("assets/images/dai48.png")),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Text("\$${data["borrowAmount"]} ${data["loanCurrency"]}",
-                style: const TextStyle(color: Colors.black, fontSize: 24)),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(filterWalletAddress(data["borrowerAddress"]),
-                    style: const TextStyle(color: Colors.black)),
-                Row(
-                  children: [
-                    Column(children: const <Widget>[
-                      Text("Valid",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 12)),
-                      Text("Thru",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 12))
-                    ]),
-                    const SizedBox(width: 4),
-                    Text("${data["subscriptionEnd"]}"),
-                  ],
-                )
-              ],
-            )
-          ],
+  Widget getCardWidget(dynamic data) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          stops: [0,1],
+          colors: data["loanCurrency"] == "USDT"?
+          [Color(0xfffceabb), Color(0xFF69F0AE)]:
+            data["loanCurrency"] == "USDC"?
+            [Color(0xfffceabb), Color(0xFF82B1FF)]: [Color(0xfffceabb), Color(0xFFFFF8D)]
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const Text("Borrow Amount",
+                      style: TextStyle(color: Colors.black)),
+                  Image(
+                      image: data["loanCurrency"] == "USDT"
+                          ? const AssetImage("assets/images/usdt48.png")
+                          : data["loanCurrency"] == "USDC"
+                              ? const AssetImage("assets/images/usdc48.png")
+                              : const AssetImage("assets/images/dai48.png")),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Text("\$${data["borrowAmount"]} ${data["loanCurrency"]}",
+                  style: const TextStyle(color: Colors.black, fontSize: 24)),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(filterWalletAddress(data["borrowerAddress"]),
+                      style: const TextStyle(color: Colors.black)),
+                  Row(
+                    children: [
+                      Column(children: const <Widget>[
+                        Text("Valid",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 12)),
+                        Text("Thru",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 12))
+                      ]),
+                      const SizedBox(width: 4),
+                      Text("${data["subscriptionEnd"]}"),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

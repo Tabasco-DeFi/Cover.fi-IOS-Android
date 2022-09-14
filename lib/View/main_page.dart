@@ -1,3 +1,4 @@
+import 'package:coverfi_flutter/Components/drawer.dart';
 import 'package:coverfi_flutter/Components/tab_bar_component.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +10,12 @@ class MainPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        drawer: const CustomDrawer(),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(45),
           child: AppBar(
             elevation: 0,
             title: const Text("Cover.Fi"),
-            leading: IconButton(
-              onPressed: (){},
-              icon: const Icon(Icons.menu),
-            ),
             actions: <Widget>[
               IconButton(
                 onPressed: (){},
@@ -51,10 +49,23 @@ class MainPage extends StatelessWidget {
                         final List<int> values = [10000, 20000, 30000, 40000];
                         return Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Card(
-                              elevation: 10,
-                              child: SizedBox(
-                                width: 250,
+                          child: SizedBox(
+                            width: 250,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(24),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomLeft,
+                                        end: Alignment.topRight,
+                                        stops: [0,0.5,1],
+                                        colors: [
+                                          Color(0xD39557AA),
+                                          Color(0x94FFAD00),
+                                          Color(0xFFFDD531),
+                                        ]
+                                    ),
+                                ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: <Widget>[
@@ -71,7 +82,9 @@ class MainPage extends StatelessWidget {
                                     Text("\$${values[index]}")
                                   ],
                                 ),
-                              )),
+                              ),
+                            ),
+                          ),
                         );
                       },
                     ),

@@ -10,6 +10,7 @@ import 'package:coverfi_flutter/View/borrow_page.dart';
 import 'package:coverfi_flutter/View/lend_page.dart';
 import 'package:coverfi_flutter/View/main_page.dart';
 import 'package:coverfi_flutter/View/metamask_page.dart';
+import 'package:coverfi_flutter/Components/drawer.dart';
 
 /// Controllers
 import 'package:coverfi_flutter/Controller/dashboard_state_controller.dart';

@@ -18,10 +18,15 @@ class CardDetailsComponent extends StatelessWidget {
             child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: data["loanCurrency"] == "USDT" ?
-                    Colors.greenAccent[100]:
-                    (data["loanCurrency"] == "USDC" ? Colors.blueAccent[100]: Colors.yellowAccent[100])
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      stops: [0,1],
+                      colors: data["loanCurrency"] == "USDT"?
+                      [Color(0xfffceabb), Color(0xFF69F0AE)]:
+                      data["loanCurrency"] == "USDC"?
+                      [Color(0xfffceabb), Color(0xFF82B1FF)]: [Color(0xfffceabb), Color(0xFFFFF8D)]
+                  ),
                 ),
                 child: ListView(
                   padding: const EdgeInsets.all(10),

@@ -18,26 +18,32 @@ class LendCardDetailsComponent extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: data[index]["currency"] == "USDT"
-                  ? Colors.greenAccent[100]
-                  : (data[index]["currency"] == "USDC" ?
-                    Colors.blueAccent[100] :
-                    Colors.yellowAccent[100]),
-            ),
-            child: ListView(
-              padding: const EdgeInsets.all(10),
-              children: <Widget>[
-                getRow("Asset", data[index]["currency"]),
-                getRow("Portfolio Allocation", data[index]["allocation"]),
-                getRow("Term Start", data[index]["termStart"]),
-                getRow("Term Start", calculateDate(data[index]["termStart"])),
-                getRow("Estimated APR", data[index]["apr"]),
-                getRow("Estimated Reward", data[index]["reward"][stateController.selectedIndex[index]])
-              ],
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      stops: [0,1],
+                      colors: data[index]["currency"] == "USDT"?
+                      [Color(0xfffceabb), Color(0xFF69F0AE)]:
+                      data[index]["currency"] == "USDC"?
+                      [Color(0xfffceabb), Color(0xFF82B1FF)]: [Color(0xfffceabb), Color(0xFFFFF8D)]
+                  ),
+                ),
+              child: ListView(
+                padding: const EdgeInsets.all(10),
+                children: <Widget>[
+                  getRow("Asset", data[index]["currency"]),
+                  getRow("Portfolio Allocation", data[index]["allocation"]),
+                  getRow("Term Start", data[index]["termStart"]),
+                  getRow("Term Start", calculateDate(data[index]["termStart"])),
+                  getRow("Estimated APR", data[index]["apr"]),
+                  getRow("Estimated Reward", data[index]["reward"][stateController.selectedIndex[index]])
+                ],
+              ),
             ),
           ),
         ),

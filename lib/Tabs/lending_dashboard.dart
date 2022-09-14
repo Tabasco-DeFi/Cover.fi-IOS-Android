@@ -99,83 +99,105 @@ class _LendingDashboardState extends State<LendingDashboard> {
     return listItems;
   }
 
-  Card getLendingSummaryWidget(dynamic data, int currencyIndex, VoidCallback openContainer) {
-    return Card(
-      elevation: 4,
-      color: data["currency"] == "USDT"
-          ? Colors.greenAccent[100]
-          : (data["currency"] == "USDC" ?
-            Colors.blueAccent[100] :
-            Colors.yellowAccent[100]),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const SizedBox(height: 15),
-            Container(
-              margin: const EdgeInsets.only(left: 30, right: 30),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5)
+  Widget getLendingSummaryWidget(dynamic data, int currencyIndex, VoidCallback openContainer) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              stops: [0,1],
+              colors: data["currency"] == "USDT"?
+              [Color(0xfffceabb), Color(0xFF69F0AE)]:
+              data["currency"] == "USDC"?
+              [Color(0xfffceabb), Color(0xFF82B1FF)]: [Color(0xfffceabb), Color(0xFFFFF8D)]
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(height: 15),
+              Container(
+                margin: const EdgeInsets.only(left: 30, right: 30),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(width: 75),
+                    Text(
+                        data["currency"],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30
+                        )
+                    ),
+                    const SizedBox(width: 10),
+                    Image(
+                        image: data["currency"] == "USDT"
+                            ? const AssetImage("assets/images/usdt48.png")
+                            : data["currency"] == "USDC"
+                            ? const AssetImage("assets/images/usdc48.png")
+                            : const AssetImage("assets/images/dai48.png")
+                    ),
+                  ],
+                ),
               ),
-              child: Text(
-                  data["currency"],
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22
-                  )
-              ),
-            ),
-            const SizedBox(height: 15),
-            const Text("Period", style: TextStyle(fontSize: 18)),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                for(int i = 0; i < data["period"].length; i++)
-                  Obx(() => ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: stateController.selected[currencyIndex]![i] == true ?
-                          MaterialStateProperty.all(Colors.pink):
-                          MaterialStateProperty.all(Colors.white)
-                          ,
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                              )
-                          )
-                      ),
-                      onPressed: () {
-                        if(stateController.checkSelected(currencyIndex) == -1){
-                          // previously Not selected
-                          stateController.updateSelected(currencyIndex, i, data["period"][i]);
-                        } else {
-                          // previously selected
-                          stateController.updateSelected(currencyIndex, stateController.selected[currencyIndex]!.toList().indexOf(true), data["period"][i]);
-                          stateController.updateSelected(currencyIndex, i, data["period"][i]);
-                        }
-                      },
-                      child: Text(data["period"][i], style: const TextStyle(fontWeight: FontWeight.w600))
-                  ))
+              const SizedBox(height: 15),
+              const Text("Period", style: TextStyle(fontSize: 18)),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  for(int i = 0; i < data["period"].length; i++)
+                    Obx(() => ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: stateController.selected[currencyIndex]![i] == true ?
+                            MaterialStateProperty.all(Colors.pink):
+                            MaterialStateProperty.all(Colors.white)
+                            ,
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero,
+                                )
+                            )
+                        ),
+                        onPressed: () {
+                          if(stateController.checkSelected(currencyIndex) == -1){
+                            // previously Not selected
+                            stateController.updateSelected(currencyIndex, i, data["period"][i]);
+                          } else {
+                            // previously selected
+                            stateController.updateSelected(currencyIndex, stateController.selected[currencyIndex]!.toList().indexOf(true), data["period"][i]);
+                            stateController.updateSelected(currencyIndex, i, data["period"][i]);
+                          }
+                        },
+                        child: Text(data["period"][i], style: const TextStyle(fontWeight: FontWeight.w600))
+                    ))
 
-              ]
-            ),
-            const SizedBox(height: 15),
-            Text("Est. APR ${data["apr"]}", style: const TextStyle(fontSize: 15)),
-            const SizedBox(height: 15),
-            Text("Completion: ${data["quota"]}/${data["maximum"]} ${data["currency"]}"),
-            LinearProgressIndicator(
-              value: data["quota"]/data["maximum"],
-              color: Colors.pink,
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(onPressed: (){
-              openContainer();
-            },
-            child: const Text("Subscribe"))
-          ],
+                ]
+              ),
+              const SizedBox(height: 15),
+              Text("Est. APR ${data["apr"]}", style: const TextStyle(fontSize: 15)),
+              const SizedBox(height: 15),
+              Text("Completion: ${data["quota"]}/${data["maximum"]} ${data["currency"]}"),
+              LinearProgressIndicator(
+                value: data["quota"]/data["maximum"],
+                color: Colors.pink,
+              ),
+              const SizedBox(height: 15),
+              ElevatedButton(onPressed: (){
+                openContainer();
+              },
+              child: const Text("Subscribe"))
+            ],
+          ),
         ),
       ),
     );
