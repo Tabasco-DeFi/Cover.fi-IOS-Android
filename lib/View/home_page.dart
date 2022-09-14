@@ -49,7 +49,6 @@ class _HomePageState extends State<HomePage> {
           child: _pageList[controller.tabIndex.value] /// !Entry point
         ),
         bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.purple[300],
             type: BottomNavigationBarType.fixed,
             currentIndex: controller.tabIndex.value,
             onTap: controller.changeTabIndex,
