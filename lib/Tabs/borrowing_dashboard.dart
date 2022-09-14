@@ -4,22 +4,27 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:animations/animations.dart';
+
 // Models
 import 'package:flutter/services.dart';
 
 class BorrowingDashboard extends StatefulWidget {
   const BorrowingDashboard({Key? key}) : super(key: key);
+
   @override
   State<BorrowingDashboard> createState() => _BorrowingDashboardState();
 }
 
 class _BorrowingDashboardState extends State<BorrowingDashboard> {
-  final BorrowStateController stateController = Get.find<BorrowStateController>();
-  final ContainerTransitionType _containerTransitionType = ContainerTransitionType.fadeThrough;
+  final BorrowStateController stateController =
+      Get.find<BorrowStateController>();
+  final ContainerTransitionType _containerTransitionType =
+      ContainerTransitionType.fadeThrough;
   late Future<List<dynamic>> _borrowerData;
 
   Future<List<dynamic>> fetchData() async {
-    final String jsonData = await rootBundle.loadString("assets/json/mock_borrow_data.json");
+    final String jsonData =
+        await rootBundle.loadString("assets/json/mock_borrow_data.json");
     final result = json.decode(jsonData); // List<dynamic>
     return result;
   }
@@ -39,57 +44,64 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
       future: _borrowerData,
       // snapshot -> Most recent communication with future
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.connectionState == ConnectionState.done) {
-          if(snapshot.hasError) {
+          if (snapshot.hasError) {
             return const Text("Error");
           } else if (snapshot.hasData) {
             return SingleChildScrollView(
-              child: Column(
-                children: getListItems(snapshot.data),
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: const Color.fromRGBO(255, 255, 255, 0.5),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  children: getListItems(snapshot.data),
+                ),
               ),
             );
           } else {
             return const Text("Empty Data");
           }
         } else {
-            return Text("State : ${snapshot.connectionState}");
+          return Text("State : ${snapshot.connectionState}");
         }
       },
-      );
+    );
   }
 
   List<Widget> getListItems(List<dynamic>? data) {
     List<Widget> listItems = [];
 
-    for(int i=0;i< data!.length; i++){
-      listItems.add(
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: SizedBox(
-                height: 200,
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: OpenContainer(
-                  closedColor: Colors.transparent,
-                  transitionType: _containerTransitionType,
-                  transitionDuration: const Duration(milliseconds: 500),
-                  openBuilder: (context, _) => CardDetailsComponent(data: data[i]),
-                  closedBuilder: (context, VoidCallback openContainer) => getCardWidget(data[i]),
-                ),
-            ),
-          )
-      );
+    for (int i = 0; i < data!.length; i++) {
+      listItems.add(Padding(
+        padding: const EdgeInsets.all(10),
+        child: SizedBox(
+          height: 200,
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: OpenContainer(
+            closedColor: Colors.transparent,
+            transitionType: _containerTransitionType,
+            transitionDuration: const Duration(milliseconds: 500),
+            openBuilder: (context, _) => CardDetailsComponent(data: data[i]),
+            closedBuilder: (context, VoidCallback openContainer) =>
+                getCardWidget(data[i]),
+          ),
+        ),
+      ));
     }
     return listItems;
   }
 
-  Card getCardWidget(dynamic data){
+  Card getCardWidget(dynamic data) {
     return Card(
-      elevation: 10,
-      color: data["loanCurrency"] == "USDT" ?
-        Colors.greenAccent[100]:
-        (data["loanCurrency"] == "USDC" ? Colors.blueAccent[100]: Colors.yellowAccent[100]),
+      elevation: 2,
+      color: data["loanCurrency"] == "USDT"
+          ? Colors.greenAccent[100]
+          : (data["loanCurrency"] == "USDC"
+              ? Colors.blueAccent[100]
+              : Colors.yellowAccent[100]),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -99,28 +111,34 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const Text("Borrow Amount", style: TextStyle(color: Colors.black)),
+                const Text("Borrow Amount",
+                    style: TextStyle(color: Colors.black)),
                 Image(
-                  image: data["loanCurrency"] == "USDT" ?
-                    const AssetImage("assets/images/usdt48.png"):
-                    data["loanCurrency"] == "USDC" ?
-                      const AssetImage("assets/images/usdc48.png"):
-                      const AssetImage("assets/images/dai48.png")
-                ),
+                    image: data["loanCurrency"] == "USDT"
+                        ? const AssetImage("assets/images/usdt48.png")
+                        : data["loanCurrency"] == "USDC"
+                            ? const AssetImage("assets/images/usdc48.png")
+                            : const AssetImage("assets/images/dai48.png")),
               ],
             ),
             const SizedBox(height: 15),
-            Text("\$${data["borrowAmount"]} ${data["loanCurrency"]}", style: const TextStyle(color: Colors.black, fontSize: 24)),
+            Text("\$${data["borrowAmount"]} ${data["loanCurrency"]}",
+                style: const TextStyle(color: Colors.black, fontSize: 24)),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(filterWalletAddress(data["borrowerAddress"]), style: const TextStyle(color: Colors.black)),
+                Text(filterWalletAddress(data["borrowerAddress"]),
+                    style: const TextStyle(color: Colors.black)),
                 Row(
                   children: [
                     Column(children: const <Widget>[
-                      Text("Valid", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                      Text("Thru", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12))
+                      Text("Valid",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 12)),
+                      Text("Thru",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 12))
                     ]),
                     const SizedBox(width: 4),
                     Text("${data["subscriptionEnd"]}"),
@@ -128,18 +146,15 @@ class _BorrowingDashboardState extends State<BorrowingDashboard> {
                 )
               ],
             )
-
           ],
         ),
       ),
     );
   }
 
-  String filterWalletAddress(String address){
-    String firstDigits = address.substring(0,5);
-    String trailingDigts = address.substring(address.length-5);
+  String filterWalletAddress(String address) {
+    String firstDigits = address.substring(0, 5);
+    String trailingDigts = address.substring(address.length - 5);
     return "$firstDigits******$trailingDigts";
   }
 }
-
-
