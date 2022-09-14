@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:coverfi_flutter/Controller/lend_state_controller.dart';
+import 'package:coverfi_flutter/View/dashboard_lend_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -86,11 +87,10 @@ class _LendingDashboardState extends State<LendingDashboard> {
                   transitionType: _containerTransitionType,
                   transitionDuration: const Duration(milliseconds: 500),
                   openBuilder: (BuildContext context,
-                      void Function({Object? returnValue}) action) =>
-                      Text("Open"),
-                  closedBuilder: (BuildContext context,
-                      void Function() action) =>
-                      getLendingSummaryWidget(data[i], i)
+                      void Function({Object? returnValue}) action) => LendCardDetailsComponent(data: data, index: i),
+                  closedBuilder: (
+                      BuildContext context, VoidCallback openContainer) =>
+                      getLendingSummaryWidget(data[i], i, openContainer)
               ),
             ),
           )
@@ -99,7 +99,7 @@ class _LendingDashboardState extends State<LendingDashboard> {
     return listItems;
   }
 
-  Card getLendingSummaryWidget(data, int currencyIndex) {
+  Card getLendingSummaryWidget(dynamic data, int currencyIndex, VoidCallback openContainer) {
     return Card(
       elevation: 4,
       color: data["currency"] == "USDT"
@@ -117,7 +117,6 @@ class _LendingDashboardState extends State<LendingDashboard> {
               margin: const EdgeInsets.only(left: 30, right: 30),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: const Color(0x6E787478),
                 borderRadius: BorderRadius.circular(5)
               ),
               child: Text(
@@ -151,11 +150,11 @@ class _LendingDashboardState extends State<LendingDashboard> {
                       onPressed: () {
                         if(stateController.checkSelected(currencyIndex) == -1){
                           // previously Not selected
-                          stateController.updateSelected(currencyIndex, i);
+                          stateController.updateSelected(currencyIndex, i, data["period"][i]);
                         } else {
                           // previously selected
-                          stateController.updateSelected(currencyIndex, stateController.selected[currencyIndex]!.toList().indexOf(true));
-                          stateController.updateSelected(currencyIndex, i);
+                          stateController.updateSelected(currencyIndex, stateController.selected[currencyIndex]!.toList().indexOf(true), data["period"][i]);
+                          stateController.updateSelected(currencyIndex, i, data["period"][i]);
                         }
                       },
                       child: Text(data["period"][i], style: const TextStyle(fontWeight: FontWeight.w600))
@@ -172,7 +171,10 @@ class _LendingDashboardState extends State<LendingDashboard> {
               color: Colors.pink,
             ),
             const SizedBox(height: 15),
-            ElevatedButton(onPressed: (){}, child: const Text("Subscribe"))
+            ElevatedButton(onPressed: (){
+              openContainer();
+            },
+            child: const Text("Subscribe"))
           ],
         ),
       ),
