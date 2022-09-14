@@ -5,6 +5,8 @@ class LendStateController extends GetxController {
   // final selected = <int, List<bool>>{}.obs;
   // Collections nested inside another collection has to be Rx<T> in order to be observable
   final selected = RxMap<int, RxList<bool>>({});
+  final selectedDay=  RxMap<int, String>({});
+  final selectedIndex = RxMap<int, int>({});
 
   initializePeriod(List<dynamic> data){
     for(int i = 0; i <data.length; i++){
@@ -18,8 +20,10 @@ class LendStateController extends GetxController {
     return selected[currencyIdx]!.toList().indexOf(true);
   }
 
-  updateSelected(int currencyIdx, int index){
+  updateSelected(int currencyIdx, int index, String period){
     // print(selected[currencyIdx]![index].runtimeType); => bool
     selected[currencyIdx]![index] = !selected[currencyIdx]![index];
+    selectedIndex[currencyIdx] = index;
+    selectedDay[currencyIdx] = period;
   }
 }
