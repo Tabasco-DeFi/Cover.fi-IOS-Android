@@ -1,7 +1,5 @@
 import 'package:coverfi_flutter/Components/tab_bar_component.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'dart:convert'; // Used to get JSON functions
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
@@ -68,9 +66,7 @@ class MainPage extends StatelessWidget {
                                         overflow: TextOverflow.fade,
                                         maxLines: 2,
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                        style: const TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                     Text("\$${values[index]}")
                                   ],
